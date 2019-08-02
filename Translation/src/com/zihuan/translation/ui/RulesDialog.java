@@ -1,5 +1,6 @@
 package com.zihuan.translation.ui;
 
+import com.zihuan.translation.LocalData;
 import com.zihuan.translation.interfaces.SelectTextListener;
 
 import javax.swing.*;
@@ -18,10 +19,11 @@ public class RulesDialog extends JDialog {
     public RulesDialog(String candidate, SelectTextListener listener) {
         setContentPane(contentPane);
         setModal(true);
+        setLocation(LocalData.INSTANCE.XLocation(), LocalData.INSTANCE.YLocation());
         selectTextListener = listener;
-        setLocationRelativeTo(getOwner());
+//        setLocationRelativeTo(getOwner());
         getRootPane().setDefaultButton(buttonOK);
-        List<String> rules = Arrays.asList("m", "p", "m_", "p_");
+        List<String> rules = Arrays.asList("", "m", "m_");
         List<String> data = new ArrayList();
 
         for (String ru : rules) {
@@ -50,7 +52,7 @@ public class RulesDialog extends JDialog {
 
     private void onOK() {
         dispose();
-        if (rules_list.getSelectedValue()!=null){
+        if (rules_list.getSelectedValue() != null) {
             selectTextListener.selectTextClick(rules_list.getSelectedValue().toString());
         }
     }

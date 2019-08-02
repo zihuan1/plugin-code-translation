@@ -4,8 +4,10 @@ import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.PlatformDataKeys
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.editor.Document
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.ui.Messages
+import com.intellij.openapi.util.IconLoader
 import com.zihuan.translation.interfaces.SelectTextListener
 import com.zihuan.translation.mode.TranslationBean
 import com.zihuan.translation.net.TranslateCallBack
@@ -34,15 +36,19 @@ class WordList : AnAction(), SelectTextListener {
         e.presentation.isEnabled = editor != null
         e.presentation.isEnabled = editor?.selectionModel?.hasSelection() ?: false
     }
+//    private val icon = IconLoader.getIcon("/icons/a8.png")
 
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.getData(PlatformDataKeys.PROJECT)
+
         if (!isFastClick(1000)) {
             /* 第一步 --> 选中单词 */
             // 获取动作编辑器
             editor = e.getData(PlatformDataKeys.EDITOR) ?: return
             // 获取选择模式对象
             val model = editor.selectionModel
+            val startOffset = model.selectionStart
+            println(getSelectedType(editor.document, startOffset))
             // 选中文字
             val selectedText = model.selectedText ?: return
             if (selectedText.isBlank()) return
@@ -56,6 +62,13 @@ class WordList : AnAction(), SelectTextListener {
         }
     }
 
+    private fun getSelectedType(document: Document, startOffset: Int): String {
+
+        val text = document.text.substring(0, startOffset).trim()
+        val startIndex = text.lastIndexOf(' ')
+
+        return text.substring(startIndex + 1)
+    }
 
     var mTranslationData = ArrayList<String>()
     /**
@@ -74,9 +87,10 @@ class WordList : AnAction(), SelectTextListener {
                 }
             }
         }
-        var test = TranslationDialog(mTranslationData, this)
-        test.pack()
-        test.isVisible = true
+        var dialog = TranslationDialog(mTranslationData, this)
+        dialog.setSize(LocalData.DIALOG_WIDTH, LocalData.DIALOG_HEIGHT)
+        dialog.pack()
+        dialog.isVisible = true
 
 //        ApplicationManager.getApplication().invokeLater {
 //            JBPopupFactory.getInstance()

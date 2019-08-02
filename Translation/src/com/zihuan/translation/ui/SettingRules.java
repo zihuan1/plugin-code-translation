@@ -1,5 +1,7 @@
 package com.zihuan.translation.ui;
 
+import com.zihuan.translation.LocalData;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
@@ -24,13 +26,11 @@ public class SettingRules extends JFrame {
         setContentPane(jp_root);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
-        int width = Toolkit.getDefaultToolkit().getScreenSize().width;
-        int height = Toolkit.getDefaultToolkit().getScreenSize().height;
 //        居中显示
-        setBounds(width / 2 - 250, height / 2 - 150, 500, 300);
+        setLocation(LocalData.INSTANCE.XLocation(),LocalData.INSTANCE.YLocation());
         setVisible(true);
-        loadFile();
-        setListener();
+//        loadFile();
+//        setListener();
     }
 
     private void setListener() {
