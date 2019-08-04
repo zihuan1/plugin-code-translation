@@ -21,8 +21,12 @@ public class RulesDialog extends JDialog {
         setModal(true);
         setLocation(LocalData.INSTANCE.XLocation(), LocalData.INSTANCE.YLocation());
         selectTextListener = listener;
-//        setLocationRelativeTo(getOwner());
+        getRootPane().setDefaultButton(buttonCancel);
+        setLocationRelativeTo(null);
         getRootPane().setDefaultButton(buttonOK);
+//        此处要判断一下文件文件类型
+//        然后再获取当前行文本类型
+//        最后根据类型再设置命名规则
         List<String> rules = Arrays.asList("", "m", "m_");
         List<String> data = new ArrayList();
 
@@ -42,7 +46,7 @@ public class RulesDialog extends JDialog {
             }
         });
 
-        // call onCancel() on ESCAPE
+        //esc键监听
         contentPane.registerKeyboardAction(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onCancel();

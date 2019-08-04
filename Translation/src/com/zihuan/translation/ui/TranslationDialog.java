@@ -2,6 +2,7 @@ package com.zihuan.translation.ui;
 
 import com.zihuan.translation.LocalData;
 import com.zihuan.translation.interfaces.SelectTextListener;
+import com.zihuan.translation.u.Logger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,16 +23,15 @@ public class TranslationDialog extends JDialog {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(bt_translation_ok);
-//        setLocationRelativeTo(null);
+        setLocationRelativeTo(null);
         selectTextListener = listener;
         translation_list.setListData(data.toArray());
         translation_list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         bt_translation_ok.addActionListener(e -> onOK());
-
         bt_translation_cancel.addActionListener(e -> onCancel());
+        bt_translation_cancel.setMnemonic(KeyEvent.VK_Q);
         bt_setting.addActionListener(e -> {
             new SettingRules();
-
         });
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -40,16 +40,13 @@ public class TranslationDialog extends JDialog {
                 onCancel();
             }
         });
-
-        // call onCancel() on ESCAPE
-        contentPane.registerKeyboardAction(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
+        contentPane.registerKeyboardAction(e -> {
+            onCancel();
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
 
     private void onOK() {
+        Logger.error("确定");
         dispose();
         if (translation_list.getSelectedValue() == null) return;
         RulesDialog dialog = new RulesDialog(translation_list.getSelectedValue().toString(), selectTextListener);
@@ -60,6 +57,7 @@ public class TranslationDialog extends JDialog {
     }
 
     private void onCancel() {
+        Logger.error("取消");
         dispose();
     }
 

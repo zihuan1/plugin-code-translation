@@ -15,6 +15,7 @@ public class SettingRules extends JFrame {
     private JTextField tf_class_name;
     private JTextField tf_fun_name;
     private JButton bt_save;
+    private JTextField tf_cancel_key;
 
     public SettingRules() {
         initView();

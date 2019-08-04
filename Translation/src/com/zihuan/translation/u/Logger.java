@@ -43,5 +43,6 @@ public class Logger {
         if (LEVEL > ERROR) {
             Notifications.Bus.notify(new Notification(NAME, NAME + " [ERROR]", text, NotificationType.ERROR));
         }
+        System.out.println("--------  "+text);
     }
 }

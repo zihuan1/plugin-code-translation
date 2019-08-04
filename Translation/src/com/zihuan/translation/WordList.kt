@@ -3,16 +3,18 @@ package com.zihuan.translation
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.PlatformDataKeys
-import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.command.WriteCommandAction
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.editor.Editor
+import com.intellij.openapi.editor.SelectionModel
+import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.Messages
-import com.intellij.openapi.util.IconLoader
 import com.zihuan.translation.interfaces.SelectTextListener
 import com.zihuan.translation.mode.TranslationBean
 import com.zihuan.translation.net.TranslateCallBack
 import com.zihuan.translation.net.requestNetData
 import com.zihuan.translation.ui.TranslationDialog
+
 
 class WordList : AnAction(), SelectTextListener {
 
@@ -24,7 +26,7 @@ class WordList : AnAction(), SelectTextListener {
      * 第四步 弹出各种按配置规则显示的列表(将来考虑一下是否可以编辑)
      * 第五步 更改选中的文本的文案
      * 其他 1.设置规则页面
-     *      2.检测当前是类名还是接口名称
+     *      2.检测当前是类名还是接口名称，还是其他的类型（分别判断kotlin还是java类型文件）
      *      3.如果是多个单词的话要首字母大写然后拼接
      *      4.能不能判断一下选中的文本是什么类型
      */
@@ -36,19 +38,20 @@ class WordList : AnAction(), SelectTextListener {
         e.presentation.isEnabled = editor != null
         e.presentation.isEnabled = editor?.selectionModel?.hasSelection() ?: false
     }
-//    private val icon = IconLoader.getIcon("/icons/a8.png")
 
+    //    private val icon = IconLoader.getIcon("/icons/a8.png")
+    lateinit var model: SelectionModel
+    lateinit var project: Project
     override fun actionPerformed(e: AnActionEvent) {
-        val project = e.getData(PlatformDataKeys.PROJECT)
-
+        project = e.getData(PlatformDataKeys.PROJECT) ?: return
         if (!isFastClick(1000)) {
             /* 第一步 --> 选中单词 */
             // 获取动作编辑器
             editor = e.getData(PlatformDataKeys.EDITOR) ?: return
             // 获取选择模式对象
-            val model = editor.selectionModel
-            val startOffset = model.selectionStart
-            println(getSelectedType(editor.document, startOffset))
+            model = editor.selectionModel
+//            val startOffset = model.selectionStart
+//            println("类型" + getSelectedType(editor.document, startOffset))
             // 选中文字
             val selectedText = model.selectedText ?: return
             if (selectedText.isBlank()) return
@@ -63,11 +66,17 @@ class WordList : AnAction(), SelectTextListener {
     }
 
     private fun getSelectedType(document: Document, startOffset: Int): String {
-
         val text = document.text.substring(0, startOffset).trim()
         val startIndex = text.lastIndexOf(' ')
-
         return text.substring(startIndex + 1)
+    }
+
+    /***
+     * 首先判断文件类型
+     * 根据当前文件类型分别判断所选文本行的具体类型
+     */
+    fun getSelectedType() {
+
     }
 
     var mTranslationData = ArrayList<String>()
@@ -106,10 +115,12 @@ class WordList : AnAction(), SelectTextListener {
      * 选中文案回调
      */
     override fun selectTextClick(text: String) {
-        ApplicationManager.getApplication().runWriteAction {
-            editor.document.setText(text)
+        var runnable = Runnable {
+            val startOffset = model.selectionStart
+            val endOffset = model.selectionEnd
+            editor.document.replaceString(startOffset, endOffset, text)
         }
-
+        WriteCommandAction.runWriteCommandAction(project, runnable);
     }
 
     /**
