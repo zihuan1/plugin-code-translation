@@ -2,6 +2,7 @@ package com.zihuan.translation.ui;
 
 import com.zihuan.translation.LocalData;
 import com.zihuan.translation.interfaces.SelectTextListener;
+import com.zihuan.translation.u.Logger;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -11,34 +12,33 @@ import java.util.List;
 
 public class RulesDialog extends JDialog {
     private JPanel contentPane;
-    private JButton buttonOK;
-    private JButton buttonCancel;
+    private JButton bt_selected_ok;
+    private JButton bt_selected_cancel;
     private JList rules_list;
     private SelectTextListener selectTextListener;
 
     public RulesDialog(String candidate, SelectTextListener listener) {
         setContentPane(contentPane);
         setModal(true);
-        setLocation(LocalData.INSTANCE.XLocation(), LocalData.INSTANCE.YLocation());
         selectTextListener = listener;
-        getRootPane().setDefaultButton(buttonCancel);
-        setLocationRelativeTo(null);
-        getRootPane().setDefaultButton(buttonOK);
-//        此处要判断一下文件文件类型
-//        然后再获取当前行文本类型
-//        最后根据类型再设置命名规则
-        List<String> rules = Arrays.asList("", "m", "m_");
+        getRootPane().setDefaultButton(bt_selected_ok);
+        setTitle("目标翻译");
+        List<String> rules = Arrays.asList("", "", "m", "m_");
         List<String> data = new ArrayList();
-
-        for (String ru : rules) {
-            data.add(ru + candidate);
+        StringBuilder builder = caseFirstLetter(candidate);
+        bt_selected_cancel.setMnemonic(KeyEvent.VK_Q);
+        for (int i = 0, size = rules.size(); i < size; i++) {
+            if (i != 0) {//首字母大写
+                candidate = builder.replace(0, 1, String.valueOf(builder.charAt(0)).toUpperCase()).toString();
+            } else
+                candidate = builder.toString();
+            data.add(rules.get(i) + candidate);
         }
         rules_list.setListData(data.toArray());
-        buttonOK.addActionListener(e -> onOK());
+        bt_selected_ok.addActionListener(e -> onOK());
 
-        buttonCancel.addActionListener(e -> onCancel());
+        bt_selected_cancel.addActionListener(e -> onCancel());
 
-        // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -52,6 +52,24 @@ public class RulesDialog extends JDialog {
                 onCancel();
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+    }
+
+
+    //    将首字母转换为大写
+    private StringBuilder caseFirstLetter(String text) {
+        StringBuilder builder = new StringBuilder(text);
+        char str[] = text.toCharArray();
+        for (int i = 0, size = str.length; i < size; i++) {
+            if (" ".equals(String.valueOf(str[i]))) {
+                String toUpperCase = String.valueOf(str[i + 1]).toUpperCase();
+                Logger.error("转换中 " + toUpperCase);
+                builder.replace(i + 1, i + 2, toUpperCase);
+            }
+        }
+        String string = builder.toString().replace(" ", "");
+        builder.delete(0, builder.length()).append(string);
+        Logger.error("转换后 " + builder);
+        return builder;
     }
 
     private void onOK() {

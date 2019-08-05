@@ -26,12 +26,10 @@ class WordList : AnAction(), SelectTextListener {
      * 第四步 弹出各种按配置规则显示的列表(将来考虑一下是否可以编辑)
      * 第五步 更改选中的文本的文案
      * 其他 1.设置规则页面
-     *      2.检测当前是类名还是接口名称，还是其他的类型（分别判断kotlin还是java类型文件）
-     *      3.如果是多个单词的话要首字母大写然后拼接
-     *      4.能不能判断一下选中的文本是什么类型
      */
     private lateinit var editor: Editor
     private var latestClickTime = 0L  // 上一次的点击时间
+
     /**    判断用户是否打开文本编辑页和是否选中文本**/
     override fun update(e: AnActionEvent) {
         val editor = e.getData(PlatformDataKeys.EDITOR)
@@ -71,14 +69,6 @@ class WordList : AnAction(), SelectTextListener {
         return text.substring(startIndex + 1)
     }
 
-    /***
-     * 首先判断文件类型
-     * 根据当前文件类型分别判断所选文本行的具体类型
-     */
-    fun getSelectedType() {
-
-    }
-
     var mTranslationData = ArrayList<String>()
     /**
      * 第三步 --> 弹出对话框
@@ -99,6 +89,7 @@ class WordList : AnAction(), SelectTextListener {
         var dialog = TranslationDialog(mTranslationData, this)
         dialog.setSize(LocalData.DIALOG_WIDTH, LocalData.DIALOG_HEIGHT)
         dialog.pack()
+        dialog.setLocationRelativeTo(null)
         dialog.isVisible = true
 
 //        ApplicationManager.getApplication().invokeLater {

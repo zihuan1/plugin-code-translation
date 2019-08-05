@@ -12,16 +12,16 @@ object LocalData {
     val DIALOG_WIDTH = 500
     val DIALOG_HEIGHT = 300
     //	变量类型
-    var SELECTED_TEXT_VARIABLE_TYPES = arrayOf("String", "int", "Int", "Integer","boolean","Boolean","float","Float","double","Double")
-	//	类类型
-	var SELECTED_TEXT_CLASS_TYPES = arrayOf("class", "interface", "Enum")
+    var SELECTED_TEXT_VARIABLE_TYPES = arrayOf("String", "int", "Int", "Integer", "boolean", "Boolean", "float", "Float", "double", "Double")
+    //	类类型
+    var SELECTED_TEXT_CLASS_TYPES = arrayOf("class", "interface", "Enum")
 
-    fun XLocation(): Int {
-        return width.div(2).minus(DIALOG_WIDTH.div(2))
+    fun XLocation(width: Int = DIALOG_WIDTH): Int {
+        return width.div(2).minus(width.div(2))
     }
 
-    fun YLocation(): Int {
-        return height.div(2).minus(DIALOG_HEIGHT.div(2))
+    fun YLocation(height: Int = DIALOG_HEIGHT): Int {
+        return height.div(2).minus(height.div(2))
     }
 
 

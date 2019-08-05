@@ -1,0 +1,40 @@
+<idea-plugin>
+    <id>com.zihuan1.zhtranslation</id>
+    <name>ZHTranslationPlugin</name>
+    <version>1.0</version>
+    <vendor email="zihuancz@foxmail.com" url="https://github.com/zihuan1">紫幻</vendor>
+
+    <description><![CDATA[
+        这是一个可以翻译生成变量名称和类名种插件.<br>
+        GitHub:https://github.com/zihuan1.<br>
+        作者：紫幻.<br>
+    ]]></description>
+
+    <change-notes><![CDATA[
+    1.0版本.<br>
+    GitHub:https://github.com/zihuan1.<br>
+    作者：紫幻.<br>
+]]></change-notes>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+    <idea-version since-build="145.0"/>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <!-- uncomment to enable plugin in all products
+    <depends>com.intellij.modules.lang</depends>
+    -->
+    <depends>com.intellij.modules.lang</depends>
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+      <action id="ZHTranslation.com.zihuan.translation.WordList" class="com.zihuan.translation.WordList" text="com.zihuan.translation.WordList" description="弹出单词待选项列表">
+        <add-to-group group-id="CodeMenu" anchor="first"/>
+        <keyboard-shortcut keymap="$default" first-keystroke="alt X"/>
+      </action>
+    </actions>
+
+</idea-plugin>

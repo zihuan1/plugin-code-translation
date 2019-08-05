@@ -23,7 +23,7 @@ public class TranslationDialog extends JDialog {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(bt_translation_ok);
-        setLocationRelativeTo(null);
+        setTitle("待选翻译列表");
         selectTextListener = listener;
         translation_list.setListData(data.toArray());
         translation_list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -33,7 +33,6 @@ public class TranslationDialog extends JDialog {
         bt_setting.addActionListener(e -> {
             new SettingRules();
         });
-        // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -52,6 +51,7 @@ public class TranslationDialog extends JDialog {
         RulesDialog dialog = new RulesDialog(translation_list.getSelectedValue().toString(), selectTextListener);
         dialog.setSize(LocalData.INSTANCE.getDIALOG_WIDTH(), LocalData.INSTANCE.getDIALOG_HEIGHT());
         dialog.pack();
+        dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
 //        JOptionPane.showMessageDialog(this, "选中的文本 " + translation_list.getSelectedValue().toString(), null, JOptionPane.INFORMATION_MESSAGE);
     }
@@ -65,9 +65,6 @@ public class TranslationDialog extends JDialog {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(bt_translation_ok);
-//        居中显示
-        setLocation(LocalData.INSTANCE.XLocation(), LocalData.INSTANCE.YLocation());
-//        setBounds(width / 2 - (LocalData.INSTANCE.getDIALOG_WIDTH() / 2), height / 2 - (LocalData.INSTANCE.getDIALOG_HEIGHT() / 2), LocalData.INSTANCE.getDIALOG_WIDTH(), LocalData.INSTANCE.getDIALOG_HEIGHT());
     }
 
     public static void main(String[] args) {

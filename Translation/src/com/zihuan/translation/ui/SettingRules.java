@@ -28,7 +28,7 @@ public class SettingRules extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
 //        居中显示
-        setLocation(LocalData.INSTANCE.XLocation(),LocalData.INSTANCE.YLocation());
+//        setLocation(LocalData.INSTANCE.XLocation(), LocalData.INSTANCE.YLocation());
         setVisible(true);
 //        loadFile();
 //        setListener();
