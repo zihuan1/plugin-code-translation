@@ -1,9 +1,6 @@
 package com.zihuan.translation.ui;
 
-import com.zihuan.translation.LocalData;
-
 import javax.swing.*;
-import java.awt.*;
 import java.io.*;
 
 import static com.sun.org.apache.bcel.internal.util.SecuritySupport.getResourceAsStream;

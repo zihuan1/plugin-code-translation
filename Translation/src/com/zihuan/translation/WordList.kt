@@ -14,6 +14,8 @@ import com.zihuan.translation.mode.TranslationBean
 import com.zihuan.translation.net.TranslateCallBack
 import com.zihuan.translation.net.requestNetData
 import com.zihuan.translation.ui.TranslationDialog
+import java.awt.Toolkit
+import javax.swing.ImageIcon
 
 
 class WordList : AnAction(), SelectTextListener {
@@ -25,7 +27,7 @@ class WordList : AnAction(), SelectTextListener {
      * 第三步 弹出待选列表
      * 第四步 弹出各种按配置规则显示的列表(将来考虑一下是否可以编辑)
      * 第五步 更改选中的文本的文案
-     * 其他 1.设置规则页面
+     * 其他   设置规则页面
      */
     private lateinit var editor: Editor
     private var latestClickTime = 0L  // 上一次的点击时间
@@ -41,6 +43,7 @@ class WordList : AnAction(), SelectTextListener {
     lateinit var model: SelectionModel
     lateinit var project: Project
     override fun actionPerformed(e: AnActionEvent) {
+        isDefaultIcon = true
         project = e.getData(PlatformDataKeys.PROJECT) ?: return
         if (!isFastClick(1000)) {
             /* 第一步 --> 选中单词 */
@@ -87,19 +90,14 @@ class WordList : AnAction(), SelectTextListener {
             }
         }
         var dialog = TranslationDialog(mTranslationData, this)
-        dialog.setSize(LocalData.DIALOG_WIDTH, LocalData.DIALOG_HEIGHT)
+//        dialog.setIconImage(ImageIcon("resources/img/head_icon.png").image)
+//        val toolkit = Toolkit.getDefaultToolkit()
+//        val icon = toolkit.getImage("resources/img/head_icon.png")
+//        dialog.setIconImage(icon)
         dialog.pack()
         dialog.setLocationRelativeTo(null)
-        dialog.isVisible = true
 
-//        ApplicationManager.getApplication().invokeLater {
-//            JBPopupFactory.getInstance()
-//                    .createHtmlTextBalloonBuilder(result.toString(), null, JBColor(Color(186, 238, 186), Color(73, 117, 73)), null)
-//                    .setFadeoutTime(15000)
-//                    .setHideOnAction(true)
-//                    .createBalloon()
-//                    .show(JBPopupFactory.getInstance().guessBestPopupLocation(editor), Balloon.Position.below)
-//        }
+        dialog.isVisible = true
     }
 
     /***

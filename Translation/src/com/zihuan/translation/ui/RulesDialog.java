@@ -1,6 +1,5 @@
 package com.zihuan.translation.ui;
 
-import com.zihuan.translation.LocalData;
 import com.zihuan.translation.interfaces.SelectTextListener;
 import com.zihuan.translation.u.Logger;
 
@@ -23,6 +22,11 @@ public class RulesDialog extends JDialog {
         selectTextListener = listener;
         getRootPane().setDefaultButton(bt_selected_ok);
         setTitle("目标翻译");
+//        Toolkit toolkit = Toolkit.getDefaultToolkit();
+//        Image icon = toolkit.getImage("/icon/head_icon.png");
+//        setIconImage(icon);
+        setIconImage(new ImageIcon("resources/img/head_icon.png").getImage());
+
         List<String> rules = Arrays.asList("", "", "m", "m_");
         List<String> data = new ArrayList();
         StringBuilder builder = caseFirstLetter(candidate);
@@ -36,16 +40,13 @@ public class RulesDialog extends JDialog {
         }
         rules_list.setListData(data.toArray());
         bt_selected_ok.addActionListener(e -> onOK());
-
         bt_selected_cancel.addActionListener(e -> onCancel());
-
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 onCancel();
             }
         });
-
         //esc键监听
         contentPane.registerKeyboardAction(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

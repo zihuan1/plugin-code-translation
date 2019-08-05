@@ -1,6 +1,5 @@
 package com.zihuan.translation.ui;
 
-import com.zihuan.translation.LocalData;
 import com.zihuan.translation.interfaces.SelectTextListener;
 import com.zihuan.translation.u.Logger;
 
@@ -24,6 +23,8 @@ public class TranslationDialog extends JDialog {
         setModal(true);
         getRootPane().setDefaultButton(bt_translation_ok);
         setTitle("待选翻译列表");
+        setIconImage(new ImageIcon("resources/img/head_icon.png").getImage());
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);//关闭时销毁对话框
         selectTextListener = listener;
         translation_list.setListData(data.toArray());
         translation_list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -33,7 +34,6 @@ public class TranslationDialog extends JDialog {
         bt_setting.addActionListener(e -> {
             new SettingRules();
         });
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 onCancel();
@@ -49,7 +49,6 @@ public class TranslationDialog extends JDialog {
         dispose();
         if (translation_list.getSelectedValue() == null) return;
         RulesDialog dialog = new RulesDialog(translation_list.getSelectedValue().toString(), selectTextListener);
-        dialog.setSize(LocalData.INSTANCE.getDIALOG_WIDTH(), LocalData.INSTANCE.getDIALOG_HEIGHT());
         dialog.pack();
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
@@ -69,6 +68,7 @@ public class TranslationDialog extends JDialog {
 
     public static void main(String[] args) {
         TranslationDialog dialog = new TranslationDialog();
+        dialog.setIconImage(new ImageIcon("resources/img/head_icon.png").getImage());
         dialog.pack();
         dialog.setSize(500, 300);
         dialog.setVisible(true);

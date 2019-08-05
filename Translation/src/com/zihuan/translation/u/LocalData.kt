@@ -1,4 +1,4 @@
-package com.zihuan.translation
+package com.zihuan.translation.u
 
 import org.apache.commons.lang.StringUtils
 import org.jetbrains.annotations.NonNls

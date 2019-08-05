@@ -2,7 +2,7 @@ package com.zihuan.translation.net
 
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
-import com.zihuan.translation.LocalData
+import com.zihuan.translation.u.LocalData
 import com.zihuan.translation.mode.EMPTY
 import com.zihuan.translation.mode.TranslationBean
 import com.zihuan.translation.u.Logger
