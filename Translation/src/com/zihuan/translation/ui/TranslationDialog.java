@@ -68,9 +68,11 @@ public class TranslationDialog extends JDialog {
 
     public static void main(String[] args) {
         TranslationDialog dialog = new TranslationDialog();
-        dialog.setIconImage(new ImageIcon("resources/img/head_icon.png").getImage());
         dialog.pack();
+//        dialog.setIconImage(new ImageIcon("resources/img/head_icon.png").getImage());
+        dialog.setIconImage(Toolkit.getDefaultToolkit().getImage("resources/img/head_icon.png"));
         dialog.setSize(500, 300);
+        dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
 //        System.exit(0);
     }

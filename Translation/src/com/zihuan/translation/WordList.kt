@@ -90,13 +90,12 @@ class WordList : AnAction(), SelectTextListener {
             }
         }
         var dialog = TranslationDialog(mTranslationData, this)
+        dialog.pack()
 //        dialog.setIconImage(ImageIcon("resources/img/head_icon.png").image)
 //        val toolkit = Toolkit.getDefaultToolkit()
 //        val icon = toolkit.getImage("resources/img/head_icon.png")
-//        dialog.setIconImage(icon)
-        dialog.pack()
+//        dialog.isResizable=false//禁止调整大小
         dialog.setLocationRelativeTo(null)
-
         dialog.isVisible = true
     }
 
