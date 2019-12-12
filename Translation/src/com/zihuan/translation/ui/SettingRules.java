@@ -28,12 +28,12 @@ public class SettingRules extends JFrame {
 //        setLocation(LocalData.INSTANCE.XLocation(), LocalData.INSTANCE.YLocation());
         setVisible(true);
 //        loadFile();
-//        setListener();
+        setListener();
     }
 
     private void setListener() {
         bt_save.addActionListener(e -> {
-            saveFile();
+//            saveFile();
         });
     }
 
@@ -54,6 +54,7 @@ public class SettingRules extends JFrame {
 
     private void saveFile() {
         InputStream inputStream = getResourceAsStream("config/config.txt");
+//        InputStream inputStream = getResourceAsStream("config/1config.txt");
         OutputStream os = null;
         try {
             String path = "resources/config/";

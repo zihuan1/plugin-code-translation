@@ -1,17 +1,27 @@
 <idea-plugin>
     <id>com.zihuan1.zhtranslation</id>
-    <name>ZHTranslationPlugin</name>
-    <version>1.0</version>
-    <vendor email="zihuancz@foxmail.com" url="https://github.com/zihuan1">紫幻</vendor>
+    <name>ZHTranslation</name>
+    <version>1.2</version>
+    <vendor email="zihuancz@foxmail.com" url="https://github.com/zihuan1/ZHTranslationPlugin">紫幻</vendor>
 
     <description><![CDATA[
+        This is a translation plugin
+        use
+            1. Selecting Chinese Characters to be Translated
+            2. Press ALT+X shortcut to exhale translation list
+                2.1 ALT+X
+                2.2 Keyboard Up and Down Keyboard Selection of Selected Text
+                2.3 entry determination
+                2.4 ALT+Q Close Page
+
         这是一个可以翻译生成变量名称和类名称的插件.<br>
         GitHub:https://github.com/zihuan1.<br>
         作者：紫幻.<br>
     ]]></description>
 
     <change-notes><![CDATA[
-    1.0版本.<br>
+    1.2<br>
+    Increase the English<br>
     GitHub:https://github.com/zihuan1.<br>
     作者：紫幻.<br>
 ]]></change-notes>
@@ -31,10 +41,11 @@
 
     <actions>
         <!-- Add your actions here -->
-      <action id="ZHTranslation.com.zihuan.translation.WordList" class="com.zihuan.translation.WordList" text="WordList" description="弹出单词待选项列表">
-        <add-to-group group-id="CodeMenu" anchor="first"/>
-        <keyboard-shortcut keymap="$default" first-keystroke="alt X"/>
-      </action>
+        <action id="ZHTranslation.com.zihuan.translation.WordList" class="com.zihuan.translation.WordList"
+                text="WordList" description="弹出单词待选项列表">
+            <add-to-group group-id="CodeMenu" anchor="first"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="alt X"/>
+        </action>
     </actions>
 
 </idea-plugin>
