@@ -1,11 +1,11 @@
 <idea-plugin>
     <id>com.zihuan1.zhtranslation</id>
-    <name>ZHTranslationPlugin</name>
-    <version>1.0</version>
+    <name>ZHTranslation</name>
+    <version>1.4</version>
     <vendor email="zihuancz@foxmail.com" url="https://github.com/zihuan1">紫幻</vendor>
 
     <description><![CDATA[
-        这是一个可以翻译生成变量名称和类名种插件.<br>
+        这是一个可以翻译生成变量名称和类名称的插件.<br>
         GitHub:https://github.com/zihuan1.<br>
         作者：紫幻.<br>
     ]]></description>
@@ -31,7 +31,7 @@
 
     <actions>
         <!-- Add your actions here -->
-      <action id="ZHTranslation.com.zihuan.translation.WordList" class="com.zihuan.translation.WordList" text="com.zihuan.translation.WordList" description="弹出单词待选项列表">
+      <action id="ZHTranslation.com.zihuan.translation.WordList" class="com.zihuan.translation.WordList" text="WordList" description="弹出单词待选项列表">
         <add-to-group group-id="CodeMenu" anchor="first"/>
         <keyboard-shortcut keymap="$default" first-keystroke="alt X"/>
       </action>

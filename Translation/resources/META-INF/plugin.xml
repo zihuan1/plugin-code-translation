@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.zihuan1.zhtranslation</id>
-    <name>ZHTranslationPlugin</name>
-    <version>1.0</version>
+    <name>ZHTranslation</name>
+    <version>1.4</version>
     <vendor email="zihuancz@foxmail.com" url="https://github.com/zihuan1">紫幻</vendor>
 
     <description><![CDATA[
